@@ -1,9 +1,18 @@
 package ru.gb.springdemo.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+
+  public Book() {
+  }
 
   public Book(String name) {
     this.name = name;

@@ -25,11 +25,10 @@ public class IssuerController {
 //  }
 
     @PostMapping
-    public ResponseEntity<Issue> issueBook(@RequestBody IssueRequest request) {
-        log.info("Получен запрос на выдачу: readerId = {}, bookId = {}", request.getReaderId(), request.getBookId());
-        final Issue issue;
+    public ResponseEntity<Issue> issueBook(@RequestBody Issue issue) {
+        log.info("Получен запрос на выдачу: readerId = {}, bookId = {}", issue.getReaderId(), issue.getBookId());
         try {
-            issue = service.issue(request);
+            issue = service.issue(issue);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         } catch (NullPointerException e) {
@@ -50,14 +49,16 @@ public class IssuerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Issue> returnBooks(@PathVariable Long id) {
-        Issue updatedIssue = service.update(id);
+        Issue updatedIssue = service.returnBooks(id);
         if (updatedIssue != null) {
             return new ResponseEntity<>(updatedIssue, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removeIssue(@PathVariable Long id) {
+        service.deleteIssue(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

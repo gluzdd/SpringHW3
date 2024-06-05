@@ -51,13 +51,13 @@ public class UIController {
         return "/issues";
     }
 
-    @GetMapping("/readers/{id}")
-    public String getAllBooksReaderId(@PathVariable Long id, Model model) {
-        List<Issue> listIssue = readerService.getListIssueById(id);
-        String nameReader = readerService.getReaderById(id).getName();
-        model.addAttribute("readerIssues", listIssue);
-        model.addAttribute("nameReader", nameReader);
-        return "readerIssues";
-    }
+//    @GetMapping("/readers/{id}")
+//    public String getAllBooksReaderId(@PathVariable Long id, Model model) {
+//        List<Issue> listIssue = readerService.getListIssueById(id);
+//        String nameReader = readerService.getReaderById(id).getName();
+//        model.addAttribute("readerIssues", listIssue);
+//        model.addAttribute("nameReader", nameReader);
+//        return "readerIssues";
+//    }
 
 }

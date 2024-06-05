@@ -2,6 +2,7 @@ package ru.gb.springdemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.repository.BookRepository;
 
@@ -18,22 +19,25 @@ public class BookService {
     }
 
     public Book getBookById(Long id) {
-        return repository.getBookById(id);
+        return repository.findById(id).get();
     }
 
     public List<Book> getBooks() {
-        return repository.getBooks();
+        return repository.findAll();
     }
 
     public Book addBook(Book book) {
-        return repository.addBook(book);
+        return repository.save(book);
     }
 
+    @Transactional
     public Book updateBook(Long id, Book book) {
-        return repository.updateBook(id, book);
+        Book updateBook = repository.findById(id).orElseThrow(()-> new RuntimeException("id not found"));
+        updateBook.setName(book.getName());
+        return updateBook;
     }
 
     public void removeBook(Long id) {
-        repository.removeBook(id);
+        repository.deleteById(id);
     }
 }

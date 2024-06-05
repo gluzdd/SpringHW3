@@ -1,2 +1,13 @@
 application:
   max-allowed-books: 2
+
+spring:
+  datasource:
+    url:  jdbc:postgresql://localhost:5432/mygusdb
+    username: gus
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

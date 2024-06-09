@@ -1,14 +1,18 @@
 package ru.gb.springdemo.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "books")
+@Schema(name = "Книга")
 public class Book {
 
   @Id
+  @Schema(name = "Идентификатор")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Schema(name = "Название книги")
   private String name;
 
   public Book() {

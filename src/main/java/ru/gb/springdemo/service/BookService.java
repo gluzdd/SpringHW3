@@ -8,6 +8,7 @@ import ru.gb.springdemo.repository.BookRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -18,8 +19,8 @@ public class BookService {
         this.repository = repository;
     }
 
-    public Book getBookById(Long id) {
-        return repository.findById(id).get();
+    public Optional<Book> getBookById(Long id) {
+        return repository.findById(id);
     }
 
     public List<Book> getBooks() {

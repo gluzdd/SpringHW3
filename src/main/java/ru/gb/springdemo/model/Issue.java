@@ -1,5 +1,6 @@
 package ru.gb.springdemo.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,12 +12,16 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "issues")
+@Schema(name = "Выдачи")
 public class Issue {
 
     @Id
+    @Schema(name = "Идентификатор")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Schema(name = "Идентификатор книги")
     private Long bookId;
+    @Schema(name = "Идентификатор читателя")
     private Long readerId;
 
     public Issue() {
@@ -24,7 +29,9 @@ public class Issue {
     /**
      * Дата выдачи
      */
+    @Schema(name = "Время выдачи книги")
     private LocalDateTime issuedAt;
+    @Schema(name = "Время возврата книги")
     private LocalDateTime timeReturn = null;
 
 

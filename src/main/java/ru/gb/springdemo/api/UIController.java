@@ -3,9 +3,7 @@ package ru.gb.springdemo.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.model.Reader;
@@ -51,13 +49,25 @@ public class UIController {
         return "/issues";
     }
 
-//    @GetMapping("/readers/{id}")
-//    public String getAllBooksReaderId(@PathVariable Long id, Model model) {
-//        List<Issue> listIssue = readerService.getListIssueById(id);
-//        String nameReader = readerService.getReaderById(id).getName();
-//        model.addAttribute("readerIssues", listIssue);
-//        model.addAttribute("nameReader", nameReader);
-//        return "readerIssues";
-//    }
+    @GetMapping("/newReader")
+    public String newReader(Model model) {
+        model.addAttribute("reader", new Reader());
+        return "newReader";
+    }
+
+    @PostMapping("/reader")
+    public String create(@ModelAttribute("reader") Reader reader) {
+        readerService.addReader(reader);
+        return "redirect:/ui/readers";
+    }
+
+    @GetMapping("/readers/{id}")
+    public String getAllBooksReaderId(@PathVariable Long id, Model model) {
+        List<Issue> listIssue = readerService.getListIssueById(id);
+        String nameReader = readerService.getReaderById(id).getName();
+        model.addAttribute("readerIssues", listIssue);
+        model.addAttribute("nameReader", nameReader);
+        return "readerIssues";
+    }
 
 }

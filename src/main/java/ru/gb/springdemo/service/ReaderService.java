@@ -26,12 +26,13 @@ public class ReaderService {
     }
 
     public Reader getReaderById(Long id) {
-        Optional<Reader> optionalReader = repository.findById(id);
-        if(optionalReader.isPresent()) {
-            return optionalReader.get();
-        } else {
-            throw new EntityNotFoundException("Reader not found");
-        }
+//        Optional<Reader> optionalReader = repository.findById(id);
+//        if(optionalReader.isPresent()) {
+//            return optionalReader.get();
+//        } else {
+//            throw new EntityNotFoundException("Reader not found");
+//        }
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
     public List<Reader> getReaders() {

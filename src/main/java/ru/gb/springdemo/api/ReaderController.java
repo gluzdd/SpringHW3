@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.aspects.RecoverException;
 import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.model.Reader;
@@ -26,15 +27,15 @@ public class ReaderController {
         this.service = service;
     }
 
+    @RecoverException(noRecoverFor = {IllegalArgumentException.class})
     @GetMapping("/{id}")
     @Operation(summary = "getReaderById", description = "Найти читателя по id")
     public ResponseEntity<Reader> getReaderById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.getReaderById(id));
-        } catch (EntityNotFoundException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @GetMapping

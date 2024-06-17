@@ -3,6 +3,7 @@ package ru.gb.springdemo;
 import org.hibernate.Hibernate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import ru.gb.springdemo.model.User;
 
 import java.util.Arrays;
@@ -12,7 +13,8 @@ import java.util.HashSet;
 public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		//SpringApplication.run(Application.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 
 	}
 }

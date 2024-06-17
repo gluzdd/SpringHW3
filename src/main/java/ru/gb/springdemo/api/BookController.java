@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.aspects.Timer;
 import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.service.BookService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +36,7 @@ public class BookController {
         }
     }
 
+    @Timer
     @GetMapping
     @Operation(summary = "getBooks", description = "Вывести список всех книг")
     public ResponseEntity<List<Book>> getBooks() {

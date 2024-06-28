@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -30,9 +31,9 @@ public class Issue {
      * Дата выдачи
      */
     @Schema(name = "Время выдачи книги")
-    private LocalDateTime issuedAt;
+    private LocalDate issuedAt;
     @Schema(name = "Время возврата книги")
-    private LocalDateTime timeReturn = null;
+    private LocalDate timeReturn = null;
 
 
     public Issue(Long bookId, Long readerId) {
@@ -53,11 +54,11 @@ public class Issue {
         return readerId;
     }
 
-    public LocalDateTime getIssuedAt() {
+    public LocalDate getIssuedAt() {
         return issuedAt;
     }
 
-    public LocalDateTime getTimeReturn() {
+    public LocalDate getTimeReturn() {
         return timeReturn;
     }
 

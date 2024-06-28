@@ -19,13 +19,14 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)  throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(configurer -> configurer
-//                        .requestMatchers("/users/**").hasAuthority("user")
+//                        .requestMatchers("/users/**").hasAuthority("admin")
 //                        .requestMatchers("/readers/**").hasAuthority("reader")
 //                        .requestMatchers("/issue/**").hasAuthority("admin")
-                        .requestMatchers("/books/**").authenticated()
+//                        .requestMatchers("/books/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults())
+                //.httpBasic(Customizer.withDefaults())
                 .csrf(it->it.disable())
                 .build();
     }

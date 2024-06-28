@@ -1,5 +1,6 @@
 package ru.gb.springdemo.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import ru.gb.springdemo.repository.BookRepository;
 import ru.gb.springdemo.repository.IssueRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -43,7 +45,7 @@ public class IssueService {
             throw new NullPointerException("Макс кол-во книг \"" + issue.getReaderId() + "\"");
         }
         //Issue issue2 = new Issue(issue.getBookId(), issue.getReaderId());
-        issue.setIssuedAt(LocalDateTime.now());
+        issue.setIssuedAt(LocalDate.now());
         issueRepository.save(issue);
         return issue;
     }
@@ -54,13 +56,13 @@ public class IssueService {
     }
 
     public Issue getIssueById(Long id) {
-        return issueRepository.findById(id).get();
+        return issueRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
     @Transactional
     public Issue returnBooks(Long id) {
         Issue updateIssue = issueRepository.findById(id).orElseThrow(()-> new RuntimeException("Issue not found"));
-        updateIssue.setTimeReturn(LocalDateTime.now());
+        updateIssue.setTimeReturn(LocalDate.now());
         return updateIssue;
     }
 

@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "books")
-@Schema(name = "Книга")
+//@Schema(name = "Книга")
 public class Book {
 
   @Id
-  @Schema(name = "Идентификатор")
+  //@Schema(name = "Идентификатор")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Schema(name = "Название книги")
+  //@Schema(name = "Название книги")
   private String name;
 
   public Book() {

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.model.Role;
 import ru.gb.springdemo.model.User;
+import ru.gb.springdemo.service.RoleService;
 import ru.gb.springdemo.service.UserService;
 
 import java.util.List;
@@ -16,10 +18,14 @@ import java.util.List;
 @RequestMapping("/users")
 @Tag(name= "Users")
 public class UserController {
+
     private final UserService userService;
+    private final RoleService roleService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     // получить пользователя по id
@@ -54,5 +60,21 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> addUser(@RequestBody User user){
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
+    }
+
+    // удаление
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // добавление роли пользователю
+    @PostMapping("/{user_id}/roles/{role_id}")
+    public ResponseEntity<User> addRoleToUser(@PathVariable Long user_id, @PathVariable Long role_id){
+        User user = userService.getUserById(user_id);
+        Role role = roleService.getRoleById(role_id);
+        user.getRoles().add(role);
+        return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
     }
 }

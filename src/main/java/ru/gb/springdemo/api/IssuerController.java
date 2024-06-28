@@ -2,6 +2,7 @@ package ru.gb.springdemo.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,11 @@ public class IssuerController {
     @GetMapping("/{id}")
     @Operation(summary = "getIssueById", description = "Найти выдачу по id")
     public ResponseEntity<Issue> getIssueById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getIssueById(id));
+        try {
+            return ResponseEntity.ok(service.getIssueById(id));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")

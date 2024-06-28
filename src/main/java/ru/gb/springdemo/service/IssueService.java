@@ -69,13 +69,4 @@ public class IssueService {
     public void deleteIssue(Long id) {
         issueRepository.deleteById(id);
     }
-
-//    public void returnBooks(Long id) {
-//        Issue issue;
-//        if (issueRepository.getIssueById(id) != null) {
-//            issueRepository.getIssueById(id).setTimeReturn(LocalDateTime.now());
-//        }
-//    }
-
-
 }
